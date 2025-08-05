@@ -1,4 +1,4 @@
-import json  
+import json 
 import os
 class TaskPy:
     
@@ -38,7 +38,7 @@ class TaskPy:
         
         
     # Load dictionary into JSON
-    def update_jfile(self):
+    def _update_jfile(self):
         with open(self.JFILE, 'w') as jf:
             json.dump(self.tasks, jf, indent=4)
         
@@ -78,76 +78,3 @@ class TaskPy:
         print("Cleared tasks successfully!")
         
         self.update_jfile() # Update
-
-
-    ####################################################################################
-    #                           FOR TEXT-CONSOLE PROGRAM                               #
-    ####################################################################################
-    
-    ############################
-    # Operations Interacting #
-    ############################
-
-    def interact_add(self):
-        print("\nYou've chosen to ADD TASK.")
-        new_task = input("New task:")
-        self.add_task(new_task)
-        
-    def interact_mark(self):
-        print("\nYou've chosen to MARK TASK.")
-        if self.show_tasks() == 1:
-            while True:
-                try:
-                    task_number = int(input("\n Mark task number:"))
-                    if task_number in range(len(self.tasks["undone"])): 
-                        self.mark_task(task_number)
-                        return 0
-                except ValueError:
-                    print("!Invalid! Choose a number corresponding to the task.") 
-                
-    def interact_show(self):
-        print("\nYou've chosen to SHOW TASKS.")
-        self.show_tasks()
-
-    def interact_clear(self):
-        print("\nYou've chosen to CLEAR TASKS.")
-        confirm = input("Are you sure? (y/n): ").lower()
-        if confirm in ['y','t','1','yes','true','confirm']:
-            self.clear_tasks()
-        else:
-            print("Clear cancelled.")
-
-    def interact_exit(self):
-        print("\nYou've chosen to EXIT.")
-        
-    #########
-    # Other #
-    #########
-
-    def show_options(self):
-        print("\nPlease choose an operation:")
-        print("\t-1 = Exit\n0 = Add Task\t1 = Mark Task\n2 = Show Tasks\t3 = Clear Tasks")
-
-    def take_input(self) -> int:
-        error_message="!Invalid! Choose a number corresponding to the operation."
-        while True:
-            try:
-                operation = int(input("TYPE HERE:"))
-                if operation in [self.EXIT, self.ADD_TASK, self.MARK_TASK, self.SHOW_TASKS, self.CLEAR_TASKS]:
-                    return operation
-                else:
-                    print(error_message)        
-            except ValueError:
-                print(error_message) 
-
-    def perform_operation(self, operation):
-        if operation == self.ADD_TASK: 
-            self.interact_add()
-        elif operation == self.MARK_TASK: 
-            self.interact_mark()
-        elif operation == self.SHOW_TASKS: 
-            self.interact_show()
-        elif operation == self.CLEAR_TASKS:  
-            self.interact_clear()
-        elif operation == self.EXIT:
-            self.interact_exit()
