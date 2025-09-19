@@ -27,6 +27,8 @@ class Task:
         self.finished = False
         self.finished_at = None
     
+    # ============================== Operations ==============================
+    
     def mark_as_finished(self):
         self.finished = True
         self.finished_at = datetime.now()
@@ -35,22 +37,37 @@ class Task:
         self.finished = False
         self.finished_at = None
         
+    def add_tag(self, tag: str):
+        if tag not in self.tags:
+            self.tags.append(tag)
+            
+    def remove_tag(self, tag: str):
+        if tag in self.tags:
+            self.tags.remove(tag)
+    
+    def set_deadline(self, deadline: datetime | str):
+        if isinstance(deadline, str):
+            self.deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M")
+        else:
+            self.deadline = deadline  # already datetime
+    
+    def remove_deadline(self):
+        self.deadline = None
+        
+    # ============================== Deadline ==============================
+        
+    def time_left(self):
+        if not self.deadline:
+            return None
+        return self.deadline - datetime.now()
+        
     def is_overdue(self):
         if self.deadline and not self.finished:
             return datetime.now() > self.deadline
         return False
     
-    def __str__(self):
-        status = "Done" if self.finished else "Undone"
-        overdue = " (Overdue)" if self.is_overdue() else ""
-        deadline_str = self.deadline.strftime("%Y-%m-%d %H:%M") if self.deadline else "No deadline"
-        tags_str = ", ".join(self.tags) if self.tags else "No tags"
-        return (f"[{self.id}] {self.title} - {status}{overdue}\n"
-                f"Description: {self.description}\n"
-                f"Tags: {tags_str}\n"
-                f"Deadline: {deadline_str}\n"
-                f"Created at: {self.created_at.strftime('%Y-%m-%d %H:%M')}\n")
-    
+    # ============================== Serialization ==============================
+        
     def to_dict(self):
         return {
             "type": self.type,
@@ -63,7 +80,6 @@ class Task:
             "finished": self.finished,
             "finished_at": self.finished_at.strftime("%Y-%m-%dT%H:%M") if self.finished else None
         }
-        
     
     @classmethod
     def from_dict(cls, data):
@@ -83,4 +99,5 @@ class Task:
         else:
             task.finished_at = None
         return task
+    
     
