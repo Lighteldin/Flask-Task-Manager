@@ -39,34 +39,9 @@ class TaskJSON:
                 self.tasks['tags'].append(tag)
         self._update_json()
     
-   # ============================== Getters ==============================
     
-    def get_latest_id(self):
-        return self.tasks['latest_id']
-
-    def get_tags(self): 
-        return self.tasks['tags']
-
-    def get_tasks(self, task_type: str): # returns list of tasks of given type
-        task_type = task_type.lower().strip()
-        if task_type in ['daily', 'overall']:
-            return self.tasks[task_type]
-
-    def get_task_by_id(self, task_id: int): # returns "task dict" and "task_type" by id
-        for task_type in ['daily', 'overall']:
-            for task in self.tasks[task_type]:
-                if task['id'] == task_id:
-                    return task, task_type
-        return None
-
     # ============================== Task operations ==============================
     
-    def is_new_task_unique(self, new_task: dict, task_type: str):
-        for task in self.tasks[task_type]:
-            if task['title'] == new_task['title'] or task['id'] == new_task['id']:
-                return False
-        return True
-
     def add_task(self, new_task: dict, task_type: str):
         if not self.is_new_task_unique(new_task, task_type):
             return
@@ -108,3 +83,31 @@ class TaskJSON:
             for task in self.tasks[task_type]:
                 task['tags'].clear()
         self._update_json()
+
+    
+   # ============================== Getters ==============================
+    
+    def get_next_id(self):
+        return self.tasks['latest_id'] + 1
+
+    def get_tags(self): 
+        return self.tasks['tags']
+
+    def get_tasks(self, task_type: str): # returns list of tasks of given type
+        task_type = task_type.lower().strip()
+        if task_type in ['daily', 'overall']:
+            return self.tasks[task_type]
+
+    def get_task_by_id(self, task_id: int): # returns "task dict" and "task_type" by id
+        for task_type in ['daily', 'overall']:
+            for task in self.tasks[task_type]:
+                if task['id'] == task_id:
+                    return task, task_type
+        return None
+
+    def is_new_task_unique(self, new_task: dict, task_type: str):
+        for task in self.tasks[task_type]:
+            if task['title'] == new_task['title'] or task['id'] == new_task['id']:
+                return False
+        return True
+
