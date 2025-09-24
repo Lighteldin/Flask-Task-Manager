@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 class TaskJSON:
     JFILE = 'data.json'
@@ -68,6 +69,23 @@ class TaskJSON:
                 self._update_json()
                 return
 
+    def mark_task_finished(self, task_id: int, task_type: str):
+        for task in self.tasks[task_type]:
+            if task['id'] == task_id:
+                task['finished'] = True
+                task['finished_at'] = datetime.now()
+                self._update_json()
+                return
+            
+    def mark_task_unfinished(self, task_id: int, task_type: str):
+        for task in self.tasks[task_type]:
+            if task['id'] == task_id:
+                task['finished'] = False
+                task['finished_at'] = None
+                self._update_json()
+                return
+    
+            
     # ============================== Reset operations ==============================
     
     def reset_tasks(self, task_type: str):
@@ -110,4 +128,13 @@ class TaskJSON:
             if task['title'] == new_task['title'] or task['id'] == new_task['id']:
                 return False
         return True
-
+    
+    def is_task_type_empty(self, task_type: str):
+        return len(self.tasks[task_type]) == 0
+    
+    def does_task_exist(self, task_id: int):
+        for task_type in ['daily', 'overall']:
+            for task in self.tasks[task_type]:
+                if task['id'] == task_id:
+                    return True
+        return False
