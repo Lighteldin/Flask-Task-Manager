@@ -1,5 +1,6 @@
 from datetime import datetime
 import sys
+
 class Task:
     def __init__(self,
                 type: str,
@@ -13,10 +14,10 @@ class Task:
         self.id = id
         self.title = title
         self.description = description if description is not None else ""
-        self.tags = tags if tags else []
+        self.tags = list({tag for tag in (tags or []) if tag}) # remove empty tags and duplicates
         
         if not deadline:
-            self.deadline = None
+            self.deadline = None 
         else:
             if isinstance(deadline, str):
                 self.deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M")

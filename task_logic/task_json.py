@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 class TaskJSON:
-    JFILE = 'data.json'
+    JFILE = './task_data/data.json'
 
     def __init__(self):
         self.tasks = {
@@ -73,7 +73,7 @@ class TaskJSON:
         for task in self.tasks[task_type]:
             if task['id'] == task_id:
                 task['finished'] = True
-                task['finished_at'] = datetime.now()
+                task['finished_at'] = datetime.now().strftime("%Y-%m-%dT%H:%M")
                 self._update_json()
                 return
             
@@ -111,7 +111,10 @@ class TaskJSON:
     def get_tags(self): 
         return self.tasks['tags']
 
-    def get_tasks(self, task_type: str): # returns list of tasks of given type
+    def get_tasks_count(self, task_type: str):
+        return len(self.tasks[task_type])
+
+    def get_tasks_by_type(self, task_type: str): # returns list of tasks of given type
         task_type = task_type.lower().strip()
         if task_type in ['daily', 'overall']:
             return self.tasks[task_type]
