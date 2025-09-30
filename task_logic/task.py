@@ -57,7 +57,7 @@ class Task:
         
     # ============================== Deadline ==============================
         
-    def time_left(self):
+    def get_time_left(self):
         if not self.deadline:
             return None
         return self.deadline - datetime.now()
