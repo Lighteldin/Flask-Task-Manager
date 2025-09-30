@@ -67,6 +67,7 @@ def ask_for_task_id_and_validate():
 
 #                           Functions:
 # add_task(): Create and save a new task
+# edit_task(): Edit a task
 # show_all_tasks(): List tasks by type (daily/overall)
 # show_task(): Show full task details by ID
 
@@ -118,9 +119,9 @@ def show_task(task_id):
 # ============================== Menus ==============================
 
 #                           Functions:
-# main_menu(): Main application menu
 # task_menu(): Submenu for showing tasks and performing operations on them
 # single_task_menu(): Submenu for operations on a single task
+# main(): Main application menu
 
 def task_menu(task_type):
     """Submenu for showing tasks and performing operations on them."""
