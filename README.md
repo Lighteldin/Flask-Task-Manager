@@ -12,3 +12,6 @@ The application uses:
 - Separate sections for "Daily" and "Overall" entries;
 - Add titles, descriptions, deadlines, and tags;
 - Colored according to deadline.
+
+> Note: This application is still in a beginner stage and not as useful as other applications. It’s a work in progress and meant for learning and experimenting.
+> Credits: Noureldin Ashraf
