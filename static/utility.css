@@ -1,0 +1,30 @@
+/*                             (v1.0.0)                             */
+
+/* ============================== ROOT VARIABLES ============================== */
+:root {
+    --light-purple-1: #C8C6D7;
+    --light-purple-2: #6B688C;
+    --lighter-purple-2: #8f8ead;
+
+    --dark-purple-1: #433a5a;
+    --dark-purple-2: #4A4063;
+
+    --teal-green: #81c1a5;
+    --teal-gray: #B0B7BA;
+    --teal-yellow: #EBCB8B;
+    --teal-red: #BF616A;
+    --teal-blue: #5E81AC;
+}
+
+/* ============================== FLEX UTILITIES ============================== */
+.flx-grw-1 { flex-grow: 1; }
+.flx-grw-2 { flex-grow: 2; }
+.flex-1   { flex: 1; }
+
+/* ============================== DISPLAY UTILITIES ============================== */
+.hidden { display: none; }
+
+/* ============================== TEXT UTILITIES ============================== */
+.black-text { color: black; }
+.white-text { color: white; }
+.bold       { font-weight: bold; }

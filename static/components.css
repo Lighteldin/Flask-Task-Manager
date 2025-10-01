@@ -1,0 +1,79 @@
+/*                             (v1.0.0)                             */
+
+/* ============================== GLOBAL RESET ============================== */
+* {
+    font-family: monospace;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+/* ============================== BODY ============================== */
+body {
+    background-color: var(--light-purple-1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0;
+    height: 100vh;
+}
+
+/* ============================== HEADER ============================== */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 40px;
+}
+
+/* ============================== BUTTONS ============================== */
+button {
+    cursor: pointer;
+    color: var(--light-purple-1);
+    border: none;
+    background: none;
+}
+
+/* ============================== INPUTS ============================== */
+input {
+    background-color: var(--light-purple-1);
+    align-self: stretch;
+    border: none;
+    padding: 4px;
+    color: black;
+}
+
+select {
+    padding: 4px;
+    background-color: var(--light-purple-1);
+    color: black;
+}
+
+/* ============================== TAGS / DETAILS ============================== */
+details[open] {
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+label, summary {
+    color: var(--light-purple-1);
+}
+
+/* ============================== TYPOGRAPHY ============================== */
+p {
+    padding: 0;
+    margin: 0;
+    color: var(--light-purple-1);
+}
+
+ol { margin: 0; }
+
+a {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+    color: white;
+}

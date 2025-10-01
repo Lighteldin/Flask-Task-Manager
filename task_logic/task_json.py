@@ -1,3 +1,5 @@
+#                            TASK MANAGER JSON DATABASE (v1.0.0)
+
 import json
 import os
 from datetime import datetime
@@ -16,6 +18,11 @@ class TaskJSON:
 
     # ==================================================================
     # Internal helpers (file + count)
+    #                           Functions:
+    # _setup_json() -> Creates the json file if it doesn't exist and loads the tasks from it.
+    # _update_json() -> Saves the tasks to the json file.
+    # _increment_id() -> Returns the next available id.
+    # _add_tags() -> Adds new tags to the list of tags.
     # ==================================================================
         
     def _setup_json(self):
@@ -56,6 +63,11 @@ class TaskJSON:
     
     # ==================================================================
     # Task Operations
+    #                           Functions:
+    # add_task() -> Adds a new task to the list of tasks.
+    # edit_task() -> Edits an existing task in the list of tasks.
+    # delete_task() -> Deletes a task from the list of tasks.
+    # toggle_task_finished() -> Toggles the finished status of a task.
     # ==================================================================
     
     def add_task(self, new_task: dict, task_type: str):
@@ -109,6 +121,9 @@ class TaskJSON:
             
     # ==================================================================
     # Reset Operations
+    #                           Functions:
+    # reset_tasks() -> Resets all tasks of a given type (daily/overall) to empty list.
+    # reset_tags() -> Resets all tags to empty list.
     # ==================================================================
     
     def reset_tasks(self, task_type: str):
@@ -132,6 +147,15 @@ class TaskJSON:
 
     # ==================================================================
     # Getters/Checkers
+    #                           Functions:
+    # get_next_id() -> Returns the next available id.
+    # get_tags() -> Returns the list of tags.
+    # get_tasks_count() -> Returns the number of tasks of a given type.
+    # get_tasks_by_type() -> Returns the list of tasks of a given type.
+    # get_task_by_id() -> Returns the task with the given id.
+    # is_new_task_unique() -> Checks if the new task is unique.
+    # is_task_type_empty() -> Checks if the task type is empty.
+    # does_task_exist() -> Checks if the task exists.
     # ==================================================================
     
     def get_next_id(self):

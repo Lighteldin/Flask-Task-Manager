@@ -1,3 +1,5 @@
+#                            TASK CLASS (v1.0.0)
+
 from datetime import datetime
 import sys
 
@@ -30,6 +32,12 @@ class Task:
     
     # ==================================================================
     # Operations
+    #                           Functions:
+    # toggle_finished() -> Toggles the finished status of a task.
+    # add_tag() -> Adds a tag to the list of tags.
+    # remove_tag() -> Removes a tag from the list of tags.
+    # set_deadline() -> Sets the deadline.
+    # remove_deadline() -> Removes the deadline.
     # ==================================================================
 
     def toggle_finished(self):
@@ -68,6 +76,9 @@ class Task:
         
     # ==================================================================
     # Deadline related
+    #                           Functions:
+    # get_time_left() -> Returns the time left until the deadline.
+    # is_overdue() -> Checks if the task is overdue.
     # ==================================================================
         
     def get_time_left(self):
@@ -86,6 +97,9 @@ class Task:
     
     # ==================================================================
     # Serialization
+    #                           Functions:
+    # to_dict() -> Returns the task as a dictionary from a task object.
+    # from_dict() -> Returns the task as a task object from a dictionary.
     # ==================================================================
         
     def to_dict(self):

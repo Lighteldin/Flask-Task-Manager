@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<header>
+    <a href="/daily" class="hdr-a-btn {{ 'hdr-a-btn-sel' if active_tab == 'daily' else 'hdr-a-btn-unsel' }}">
+        DAILY
+    </a>
+    <a href="/overall" class="hdr-a-btn {{ 'hdr-a-btn-sel' if active_tab == 'overall' else 'hdr-a-btn-unsel' }}">
+        OVERALL
+    </a>
+</header>
+{% endblock header %}
+
+{% if active_tab in ['daily','overall'] %}
+    {% block operations_tab %}
+    <form method="POST" action="">
+        <div class="operations">
+            <button name="operation" value="add_task" class="opr-btn flex-1">ADD TASK</button>
+            <button name="operation" value="reset_tasks" class="opr-btn opr-reset flex-1"
+                    onclick="return confirm('Please confirm that you want to RESET all tasks.');">
+                RESET TASKS
+            </button>
+            <button name="operation" value="reset_tags" class="opr-btn opr-reset flex-1"
+                    onclick="return confirm('Please confirm that you want to RESET all tags.');">
+                RESET TAGS
+            </button>
+        </div>
+    </form>
+    {% endblock operations_tab %}
+{% endif %}
+
+{% block main %}
+{% if active_tab != 'index' %}
+    <form method="POST" action="">
+        <ol class="all_rows">
+            {% for task in tasks %}
+                <li class="row {{get_deadline_status(task)}}">
+                    <div class="task_edit" title="Edit task"><a href="/edit?task={{task["id"]}}">✏️</a></div>
+
+                    <div class="task_details"> 
+                        <div class="task_details_left">
+                            <a href="/view?task={{task["id"]}}" class="black-text bold">{{ task["title"] }}</a>
+                            <div>
+                                {% for tag in task["tags"] %}
+                                    <p class="tag-bubble">{{ tag }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="task_details_right">
+                            <p class="black-text">
+                                {% if task["deadline"] %}
+                                    <em>Deadline:</em> {{ humanize_datetime(task["deadline"]) }}
+                                {% else %}
+                                    <em>No deadline</em>
+                                {% endif %}
+                            </p>
+                            <p class="black-text"><em>Created:</em> {{ humanize_datetime(task["created_at"]) }}</p>
+                        </div>
+                    </div>
+                    
+                    <button name="row_toggle_finished" value="{{ task["id"] }}" class="task_status" title="Toggle finished">
+                        {{ "✅" if task["finished"] else "T" }}
+                    </button>
+
+                    
+                    <button name="row_delete" value="{{ task["id"] }}" 
+                    class="task_delete" title="Delete task"
+                    onclick="return confirm('Please confirm that you want to DELETE this task.');">
+                        X
+                    </button>
+                </li>
+            {% endfor %}
+        </ol>
+    </form>
+{% endif %}
+{% endblock main %}

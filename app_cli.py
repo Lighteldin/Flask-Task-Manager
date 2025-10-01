@@ -1,4 +1,4 @@
-#                            TASK MANAGER COMMAND LINE INTERFACE APPLICATION
+#                            TASK MANAGER COMMAND LINE INTERFACE APPLICATION (v1.0.0)
 
 import sys
 from datetime import datetime
@@ -8,12 +8,13 @@ from task_logic.task_json import TaskJSON
 
 database = TaskJSON()
 
-# ============================== Input helpers ==============================
-
+# ==================================================================
+# Input helpers
 #                           Functions:
-# ask_task_type(): Ask the user to pick between daily/overall
-# ask_task_information(): Collect full task info from user input
-# ask_for_task_id_and_validate(): Ask for a task ID and validate it exists
+# ask_task_type() -> Ask the user to pick between daily/overall
+# ask_task_information() -> Collect full task info from user input
+# ask_for_task_id_and_validate() -> Ask for a task ID and validate it exists
+# ==================================================================
 
 def ask_task_type():
     """Ask the user to pick between daily/overall."""
@@ -23,6 +24,7 @@ def ask_task_type():
             print("\nInvalid task type. Try again.")
         else:
             return task_type
+
 
 def ask_task_information(ask_type: bool = True, task_type: str | None = None):
     """Collect full task info from user input."""
@@ -50,6 +52,7 @@ def ask_task_information(ask_type: bool = True, task_type: str | None = None):
 
     return task_type, task_id, task_title, task_description, task_tags, task_deadline
 
+
 def ask_for_task_id_and_validate():
     """Ask for a task ID and validate it exists."""
     while True:
@@ -62,14 +65,14 @@ def ask_for_task_id_and_validate():
                 print("\nTask ID not found. Try again.")
         except ValueError:
             print("\nInvalid task id. Try again.")
-
-# ============================== Task operations ==============================
-
+# ==================================================================
+# Task operations
 #                           Functions:
-# add_task(): Create and save a new task
-# edit_task(): Edit a task
-# show_all_tasks(): List tasks by type (daily/overall)
-# show_task(): Show full task details by ID
+# add_task() -> Create and save a new task
+# edit_task() -> Edit a task
+# show_all_tasks() -> List tasks by type (daily/overall)
+# show_task() -> Show full task details by ID
+# ==================================================================
 
 def add_task():
     """Create and save a new task."""
@@ -77,6 +80,7 @@ def add_task():
     task = Task(*ask_task_information(ask_type=True))  # " *ask_task_information() " unpacks into individual arguments
     database.add_task(task.to_dict(), task.type)
     print("\nTask added successfully.")
+
 
 def edit_task(task_id, task_type):
     """Edit a task."""
@@ -101,6 +105,7 @@ def show_all_tasks(task_type):
     for task in tasks_list:
         print(f"\t{task['id']}. {task['title']}")
 
+
 def show_task(task_id):
     """Show full task details by ID."""
     
@@ -116,12 +121,13 @@ def show_task(task_id):
     if task['finished']:
         print(f"\tFINISHED AT: {task['finished_at']}")
 
-# ============================== Menus ==============================
-
+# ==================================================================
+# Menus
 #                           Functions:
-# task_menu(): Submenu for showing tasks and performing operations on them
-# single_task_menu(): Submenu for operations on a single task
-# main(): Main application menu
+# task_menu() -> Submenu for showing tasks and performing operations on them
+# single_task_menu() -> Submenu for operations on a single task
+# main() -> Main application menu
+# ==================================================================
 
 def task_menu(task_type):
     """Submenu for showing tasks and performing operations on them."""
@@ -140,6 +146,7 @@ def task_menu(task_type):
         single_task_menu(task_id)
     else: #Done
         print("\nInvalid option.")
+
 
 def single_task_menu(task_id):
     """Submenu for operations on a single task."""
@@ -168,6 +175,7 @@ def single_task_menu(task_id):
         print("\nTask finished status toggled.")
     else:
         print("\nInvalid option.")
+
 
 def main():
     """Main application menu."""
@@ -206,8 +214,10 @@ def main():
             print("\nAll tags cleared.")
         else: #Done
             print("\nInvalid option.")
-
-# ============================== Entry Point ==============================
+            
+# ==================================================================
+# Entry Point
+# ==================================================================
 
 if __name__ == "__main__":
     main()

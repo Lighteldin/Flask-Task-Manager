@@ -1,0 +1,304 @@
+/*                             (v1.0.0)                             */
+
+/* ============================== HEADER BUTTONS ============================== */
+.hdr-a-btn {
+    all: unset;
+    background-color: var(--dark-purple-2);
+    flex: 1;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    color: var(--light-purple-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hdr-a-btn-unsel {
+    border-top: 0 solid transparent; /* for hover animation */
+    transition: all 0.3s ease;
+}
+
+.hdr-a-btn-unsel:hover {
+    opacity: 0.9;
+    border-top: 2.5px solid var(--light-purple-1);
+}
+
+.hdr-a-btn-sel {
+    background-color: var(--dark-purple-1);
+    font-weight: 700;
+    border-top: 5px solid var(--light-purple-1);
+}
+
+/* ============================== OPERATION BUTTONS ============================== */
+.operations {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 30px;
+}
+
+.opr-btn {
+    background-color: var(--light-purple-2);
+    padding: 6px;
+    transition: all 0.3s ease;
+    color: var(--light-purple-1);
+}
+
+.opr-btn:hover {
+    background-color: var(--lighter-purple-2);
+}
+
+.opr-reset {
+    background-color: var(--light-purple-2);
+}
+
+/* ============================== ENTRY FORM ============================== */
+.form-add {
+    background-color: var(--dark-purple-2);
+    min-height: 10vh;
+    width: 100%;
+    max-width: 100rem;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-self: center;
+}
+
+/* ---------- Flex Containers ---------- */
+.form-add-top,
+.form-add-middle,
+.form-add-bottom,
+.form-input {
+    display: flex;
+}
+
+.form-add-top,
+.form-add-middle {
+    flex-direction: row;
+    gap: 4rem;
+}
+
+.form-add-middle {
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-add-bottom {
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* ---------- Input Wrapper ---------- */
+.form-input {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.form-input label {
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* ---------- Inputs & Textareas ---------- */
+.form-input input[type="text"],
+.form-input input[type="datetime-local"],
+.form-input textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--dark-purple-3);
+    background-color: var(--light-purple-1);
+    resize: none;
+}
+
+.form-input textarea {
+    min-height: 6rem;
+    line-height: 1.4;
+}
+
+/* ---------- Special Cases ---------- */
+.id {
+    text-align: center;
+}
+
+.id:disabled,
+.id[readonly] {
+    opacity: 0.8;
+}
+
+/* ============================== TASK LIST ============================== */
+.all_rows,
+.row,
+.task_details,
+.task_details_left,
+.task_details_right {
+    display: flex;
+}
+
+.all_rows {
+    flex-direction: column;
+    min-height: 100%;
+    list-style: none;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.row {
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    transition: all 0.2s ease-in-out;
+    border-bottom: 2px solid var(--light-purple-2);
+}
+
+.row:hover {
+    opacity: 0.8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================== TASK ELEMENTS ============================== */
+.task_edit,
+.task_status,
+.task_delete,
+.task_details {
+    flex: 0.5;
+    height: 100%;
+    padding: 0.3rem;
+    opacity: 0.7;
+}
+
+/* Buttons */
+.task_edit,
+.task_status,
+.task_delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.task_edit {
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.task_status {
+    background-color: rgb(94, 94, 94);
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.task_delete {
+    background-color: rgb(139, 0, 0);
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.task_edit:hover,
+.task_status:hover,
+.task_delete:hover {
+    transform: scale(1.05);
+}
+
+/* ============================== TASK DETAILS ============================== */
+.task_details {
+    flex: 10;
+    width: 100%;
+    min-height: 100%;
+}
+
+.task_details_left,
+.task_details_right {
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task_details_left {
+    align-items: flex-start;
+}
+
+.task_details_right {
+    align-items: flex-end;
+}
+
+.tag-bubble {
+    display: inline-block;
+    background-color: var(--light-purple-2);
+    color: var(--light-purple-1);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-right: 4px;
+}
+
+.deadline-upcoming {background-color: var(--teal-green); }
+.deadline-today {background-color: var(--teal-yellow);}
+.deadline-overdue {background-color: var(--teal-red);}
+.deadline-none {background-color: var(--teal-blue);}
+.deadline-finished {background-color: var(--teal-gray);}
+
+/* ============================== FORUM VIEW ============================== */
+.forum-view * {
+    gap: 1.5rem;
+    color: var(--light-purple-1);
+}
+
+.forum-header {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    color: var(--light-purple-1);
+    opacity: 0.9;
+}
+
+.forum-meta {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+}
+
+.meta-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-right: 0.3rem;
+}
+
+.forum-title {
+    font-size: 1.6rem;
+}
+
+.forum-description {
+    border-radius: 0.5rem;
+    line-height: 1.5;
+    font-size: 1rem;
+    min-height: 10rem;
+}
+
+.forum-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.view-field, 
+.no-value {
+    color: #aaa;
+    font-style: italic;
+}
+

@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block title %} {{ active_tab|upper }} {% endblock title %} 
+{% block header %}{% endblock header %}
+{% block operations_tab %}{% endblock operations_tab %}
+
+{% block main %}
+<!-- ENTRY FORM -->
+<form style="margin: auto 0;" method="POST" action="" autocomplete="off">
+    <div class='form-add'>
+        <!-- TOP -->
+        <div class="form-add-top">
+            <!-- TASK TYPE -->
+            <div class='form-input flx-grw-1'>
+                <label for="task_type">TASK TYPE</label>
+                <select name="task_type" id="task_type" {% if active_tab=='edit' %}disabled{% endif %}>
+                    <option value="daily" {% if task_type and task_type.lower()=='daily' %}selected{% endif %}>DAILY</option>
+                    <option value="overall" {% if task_type and task_type.lower()=='overall' %}selected{% endif %}>OVERALL</option>
+                </select>
+                {% if active_tab=='edit' %}
+                <!-- Hidden field to show task_type when disabled -->
+                <input type="hidden" name="task_type" value="{{task_type|lower}}">
+                {% endif %}
+            </div>
+
+            <!-- ID -->
+            <div class='form-input flx-grw-1'>
+                <label for="id">ID</label>
+                <input name="id" class="id" type="text" value="{{id}}" readonly>
+            </div>
+
+            <!-- TAGS -->
+            <div class='form-input flx-grw-1'>
+                <details>
+                    <summary>TAGS</summary>
+                    {% for tag in tags %}
+                        <label>
+                            <input name="tags" type="checkbox" value="{{tag}}" 
+                                   {% if selected_tags and tag in selected_tags %}checked{% endif %}>
+                            {{tag}}
+                        </label><br>
+                    {% endfor %}
+                </details>
+            </div>
+
+            <!-- NEW_TAGS -->
+            <div class='form-input flx-grw-2'>
+                <label for="new_tags">NEW TAGS</label>
+                <input name="new_tags" type="text" placeholder="tag1,tag2,tag3"
+                       value="{{new_tags if new_tags else ''}}">
+            </div>
+
+            <!-- DEADLINE -->
+            <div class='form-input flx-grw-2 deadline-field'>
+                <label for="deadline">DEADLINE</label> 
+                <input name="deadline" type="datetime-local" id="deadline"
+                       {% if deadline %} value="{{deadline}}" {% endif %}>
+            </div>
+        </div>
+
+        <!-- MIDDLE -->
+        <div class="form-add-middle">
+            <!-- TITLE -->
+            <div class='form-input flx-grw-2'>
+                <label for="title">TITLE</label>
+                <input name="title" type="text" placeholder='Task title' 
+                       value="{{title if title else ''}}" required>
+            </div>  
+
+            <!-- DESCRIPTION -->
+            <div class='form-input flx-grw-2'>
+                <label for="description">DESCRIPTION</label>
+                <textarea name="description" rows="4" placeholder='Task description' required>{{description if description else ''}}</textarea>
+            </div>  
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="form-add-bottom">
+            <button type="submit" name="click_operation" value="cancel" class="opr-btn" formnovalidate>
+                CANCEL
+            </button>
+            {% if active_tab == 'edit' %}
+                <button name="click_operation" value="edit" class="opr-btn">EDIT</button>
+            {% elif active_tab == 'add' %}
+                <button name="click_operation" value="add" class="opr-btn">ADD</button>
+            {% endif %}
+        </div>
+    </div>
+</form>
+
+<script>
+    // Hide/show deadline depending on task type
+    const taskType = document.getElementById("task_type");
+    const deadlineField = document.querySelector(".deadline-field");
+    const deadlineInput = deadlineField.querySelector("input");
+
+    function toggleDeadline() {
+        if (taskType.value === "daily") {
+            deadlineField.classList.add("hidden");
+            deadlineInput.required = false;
+        } else {
+            deadlineField.classList.remove("hidden");
+            deadlineInput.required = true;
+        }
+    }
+    if (taskType) {
+        taskType.addEventListener("change", toggleDeadline);
+        toggleDeadline();
+    }
+
+    // Prevent past deadlines
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+    deadlineInput.min = minDateTime;
+
+    deadlineInput.addEventListener("input", function() {
+        const now = new Date();
+        const selectedDate = new Date(this.value);
+        if (selectedDate < now) {
+            alert("Please select a future deadline.");
+            this.value = "";
+        }
+    });
+</script>
+{% endblock main %}

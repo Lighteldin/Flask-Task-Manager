@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %} {{ active_tab|upper }} {% endblock title %} 
+{% block header %}{% endblock header %}
+{% block operations_tab %}{% endblock operations_tab %}
+
+{% block main %}
+<div style="margin: auto auto;" class="form-add forum-view">
+
+    <!-- HEADER INFO -->
+    <div class="form-add-top forum-header">
+        <div class="forum-meta">
+            <span class="meta-label">TASK TYPE:</span> {{ task_type|upper }}
+        </div>
+        <div class="forum-meta">
+            <span class="meta-label">ID:</span> {{ id }}
+        </div>
+        <div class="forum-meta">
+            <span class="meta-label">DEADLINE:</span>
+            {% if deadline %}
+                {{ deadline }}
+            {% else %}
+                <span class="no-value">No deadline</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- TITLE -->
+    <div class="forum-meta forum-title">
+        <span class="meta-label">TITLE:</span><br>
+        {{ title }}
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="forum-meta forum-description">
+        <span class="meta-label">DESCRIPTION:</span><br>
+        {{ description }}
+    </div>
+
+    <!-- TAGS AT BOTTOM -->
+    <div class="forum-meta forum-tags ">
+        <span class="meta-label">TAGS:</span>
+        {% for tag in selected_tags %}
+            <span class="tag-bubble">{{ tag }}</span>
+        {% endfor %}
+        
+    </div>
+
+    <!-- BACK BUTTON -->
+    <div class="form-add-bottom">
+        <a href="/{{task_type}}" class="opr-btn">BACK</a>
+    </div>
+</div>
+{% endblock main %}
