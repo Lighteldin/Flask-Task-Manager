@@ -15,3 +15,21 @@ The application uses:
 
 > Note: This application is still in a beginner stage and not as useful as other applications. It’s a work in progress and meant for learning and experimenting.
 > Credits: Noureldin Ashraf
+
+## Installation Guide
+
+Clone repository:  
+`git clone https://github.com/Lighteldin/Flask-Task-Manager.git`  
+`cd Flask-Task-Manager`
+
+Create a virtual environment:  
+`python -m venv venv`
+
+Activate the virtual environment (Windows):  
+`venv\Scripts\activate`
+
+Install dependencies:  
+`pip install -r requirements.txt`
+
+Run the app:  
+`python app_gui.py`
