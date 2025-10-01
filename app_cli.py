@@ -151,7 +151,7 @@ def single_task_menu(task_id):
     print("\t0. BACK TO MAIN MENU")
     print("\t1. Edit task")
     print("\t2. Delete task")
-    print("\t3. Mark task as finished")
+    print("\t3. Toggle finished status")
 
     choice = input("Choose operation: ")
 
@@ -164,8 +164,8 @@ def single_task_menu(task_id):
         database.delete_task(task_id, task_type)
         print("\nTask deleted.")
     elif choice == "3": #Done
-        database.mark_task_finished(task_id, task_type)
-        print("\nTask marked as finished.")
+        database.toggle_task_finished(task_id, task_type)
+        print("\nTask finished status toggled.")
     else:
         print("\nInvalid option.")
 
