@@ -28,48 +28,69 @@ class Task:
         self.finished = False
         self.finished_at = None
     
-    # ============================== Operations ==============================
-    
-    def mark_as_finished(self):
-        self.finished = True
-        self.finished_at = datetime.now()
+    # ==================================================================
+    # Operations
+    # ==================================================================
 
-    def mark_as_unfinished(self):
-        self.finished = False
-        self.finished_at = None
+    def toggle_finished(self):
+        """Toggles the finished status of a task."""
+        
+        if self.finished:
+            self.finished = False
+            self.finished_at = None
+        else:
+            self.finished = True
+            self.finished_at = datetime.now()
         
     def add_tag(self, tag: str):
+        """Adds a tag to the list of tags."""
+        
         if tag not in self.tags:
             self.tags.append(tag)
             
     def remove_tag(self, tag: str):
+        """Removes a tag from the list of tags."""
+        
         if tag in self.tags:
             self.tags.remove(tag)
     
     def set_deadline(self, deadline: datetime | str):
+        """Sets the deadline."""
+        
         if isinstance(deadline, str):
             self.deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M")
         else:
             self.deadline = deadline  # already datetime
     
     def remove_deadline(self):
+        """Removes the deadline."""
         self.deadline = None
         
-    # ============================== Deadline ==============================
+    # ==================================================================
+    # Deadline related
+    # ==================================================================
         
     def get_time_left(self):
+        """Returns the time left until the deadline."""
+        
         if not self.deadline:
             return None
         return self.deadline - datetime.now()
         
     def is_overdue(self):
+        """Checks if the task is overdue."""
+        
         if self.deadline and not self.finished:
             return datetime.now() > self.deadline
         return False
     
-    # ============================== Serialization ==============================
+    # ==================================================================
+    # Serialization
+    # ==================================================================
         
     def to_dict(self):
+        """Returns the task as a dictionary from a task object."""
+        
         return {
             "type": self.type,
             "id": self.id,
@@ -84,6 +105,7 @@ class Task:
     
     @classmethod
     def from_dict(cls, data):
+        """Returns the task as a task object from a dictionary."""
         deadline = datetime.strptime(data["deadline"], "%Y-%m-%dT%H:%M") if data["deadline"] else None
         task = cls(
             type=data["type"],
