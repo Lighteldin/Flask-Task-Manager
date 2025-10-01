@@ -271,4 +271,5 @@ def get_deadline_status(task_dict):
 # ==================================================================
 
 if __name__ == "__main__":
+    database.reset_daily_finished()  # reset daily finished tasks if needed
     app.run(debug=True)

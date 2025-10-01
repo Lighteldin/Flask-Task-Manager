@@ -144,6 +144,19 @@ class TaskJSON:
             for task in self.tasks[task_type]:
                 task['tags'].clear()
         self._update_json()
+        
+    def reset_daily_finished(self):
+        """Resets daily tasks that are finished for the day."""
+        
+        for task in self.tasks['daily']:
+            if task['finished']:
+                # Get finished_at and check if it is the same day
+                finished_at = datetime.strptime(task['finished_at'], "%Y-%m-%dT%H:%M")
+                if finished_at.date() == datetime.now().date():
+                    task['finished'] = False
+                    task['finished_at'] = None
+                    self._update_json()
+                    return
 
     # ==================================================================
     # Getters/Checkers

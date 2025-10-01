@@ -179,6 +179,7 @@ def single_task_menu(task_id):
 
 def main():
     """Main application menu."""
+    database.reset_daily_finished()  # reset daily finished tasks if needed
     while True:
         count_daily_tasks = database.get_tasks_count("daily")
         count_overall_tasks = database.get_tasks_count("overall")
