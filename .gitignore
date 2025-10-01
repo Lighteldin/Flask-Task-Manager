@@ -17,3 +17,6 @@ __pycache__/
 
 # Python files
 test.py
+
+# Database
+task_data
