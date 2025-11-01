@@ -146,17 +146,24 @@ class TaskJSON:
         self._update_json()
         
     def reset_daily_finished(self):
-        """Resets daily tasks that are finished for the day."""
+        """Resets all daily tasks that were finished before today."""
         
+        today = datetime.now().date()
+        tasks_reset = False  # Track if anything changed
+
         for task in self.tasks['daily']:
-            if task['finished']:
-                # Get finished_at and check if it is the same day
+            if task['finished'] and task.get('finished_at'):
                 finished_at = datetime.strptime(task['finished_at'], "%Y-%m-%dT%H:%M")
-                if finished_at.date() == datetime.now().date():
+                
+                # If task was finished on a previous day
+                if finished_at.date() < today:
                     task['finished'] = False
                     task['finished_at'] = None
-                    self._update_json()
-                    return
+                    tasks_reset = True
+
+        if tasks_reset:
+            self._update_json()
+
 
     # ==================================================================
     # Getters/Checkers
